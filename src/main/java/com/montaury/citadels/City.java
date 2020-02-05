@@ -38,7 +38,7 @@ public class City {
 
         score = score + districtsScoreBonus(possession);
         if (winsAllColorBonus()) {
-            score += 5;
+            score += 3;
         }
         if (board.isFirst(this)) {
             score += (2);
@@ -59,7 +59,7 @@ public class City {
                 score = score + 2;
             }
             if (d == District.TREASURY) {
-                score += score + possession.gold;
+                score += possession.gold;
             }
             if (d == District.MAP_ROOM) {
                 score += possession.hand.size();
