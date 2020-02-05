@@ -18,7 +18,6 @@ public class CityTest {
         city.buildDistrict(Card.WATCHTOWER_2);
         city.buildDistrict(Card.TAVERN_5);
         int score = city.score(possession);
-        //assert(score == 5);
         assertThat(score).isEqualTo(5);
     }
 
@@ -34,7 +33,6 @@ public class CityTest {
         city.buildDistrict(Card.HAUNTED_CITY);
 
         int score = city.score(possession);
-        //assert(score == 5);
         assertThat(score).isEqualTo(11);
     }
 
