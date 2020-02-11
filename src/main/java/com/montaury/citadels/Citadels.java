@@ -112,7 +112,7 @@ public class Citadels {
                                 }
                                 else if (action == "Draw 3 cards and keep 1") {
                                     if (pioche.canDraw(3))
-                                        possibleActions = possibleActions.append("Draw 2 cards and keep 1");
+                                        possibleActions = possibleActions.append("Draw 3 cards and keep 1");
                                 }
                                 else {
                                     possibleActions = possibleActions.append(action);
@@ -144,34 +144,8 @@ public class Citadels {
                             actionExecuted(group, actionType, associations);
 
                             // receive powers from the character
-                            List<String> powers = null;
-                            if (group.character == Character.ASSASSIN) {
-                                powers = List.of("Kill");
-                            }
-                            else if (group.character == Character.THIEF) {
-                                powers = List.of("Rob");
-                            }
-                            else if (group.character == Character.MAGICIAN) {
-                                powers = List.of("Exchange cards with other player", "Exchange cards with pile");
-                            }
-                            else if (group.character == Character.KING) {
-                                powers = List.of("Receive income");
-                            }
-                            else if (group.character == Character.BISHOP) {
-                                powers = List.of("Receive income");
-                            }
-                            else if (group.character == Character.MERCHANT) {
-                                powers = List.of("Receive income", "Receive 1 gold");
-                            }
-                            else if (group.character == Character.ARCHITECT) {
-                                powers = List.of("Pick 2 cards", "Build district", "Build district");
-                            }
-                            else if (group.character == Character.WARLORD) {
-                                powers = List.of("Receive income", "Destroy district");
-                            }
-                            else {
-                                System.out.println("Uh oh");
-                            }
+                            List<String> powers = group.character.getPowers();
+
                             List<String>  extraActions = List.empty();
                             for (District d : group.player().city().districts()) {
                                 if (d == District.SMITHY) {
