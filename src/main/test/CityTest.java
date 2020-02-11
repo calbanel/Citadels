@@ -29,11 +29,11 @@ public class CityTest {
         city.buildDistrict(Card.MANOR_5);
         city.buildDistrict(Card.WATCHTOWER_2);
         city.buildDistrict(Card.TAVERN_5);
-        city.buildDistrict(Card.TEMPLE_1);
+        city.buildDistrict(Card.MAGIC_SCHOOL);
         city.buildDistrict(Card.HAUNTED_CITY);
 
         int score = city.score(possession);
-        assertThat(score).isEqualTo(11);
+        assertThat(score).isEqualTo(16);
     }
 
     @Test
@@ -41,16 +41,16 @@ public class CityTest {
         Board board = new Board();
         City city = new City(board);
         Possession possession = new Possession(0,null);
-        city.buildDistrict(Card.MANOR_5); //3
-        city.buildDistrict(Card.WATCHTOWER_2); //1
-        city.buildDistrict(Card.TAVERN_5); //1
-        city.buildDistrict(Card.TEMPLE_1); //1
-        city.buildDistrict(Card.CHURCH_2); //2
-        city.buildDistrict(Card.CASTLE_2); //4
-        city.buildDistrict(Card.PRISON_2); //2
+        city.buildDistrict(Card.MANOR_5);
+        city.buildDistrict(Card.WATCHTOWER_2);
+        city.buildDistrict(Card.TAVERN_5);
+        city.buildDistrict(Card.TEMPLE_1);
+        city.buildDistrict(Card.CHURCH_2);
+        city.buildDistrict(Card.CASTLE_2);
+        city.buildDistrict(Card.PRISON_2);
         int score = city.score(possession);
         if (board.isFirst(city)) {
-            assertThat(score).isEqualTo(18); //14 + 4 = 18
+            assertThat(score).isEqualTo(18);
         }
 
     }
@@ -60,16 +60,16 @@ public class CityTest {
         Board board = new Board();
         City city = new City(board);
         Possession possession = new Possession(0,null);
-        city.buildDistrict(Card.MANOR_5); //3
-        city.buildDistrict(Card.WATCHTOWER_2); //1
-        city.buildDistrict(Card.TAVERN_5); //1
-        city.buildDistrict(Card.TEMPLE_1); //1
-        city.buildDistrict(Card.CHURCH_2); //2
-        city.buildDistrict(Card.CASTLE_2); //4
-        city.buildDistrict(Card.PRISON_2); //2
+        city.buildDistrict(Card.MANOR_5);
+        city.buildDistrict(Card.WATCHTOWER_2);
+        city.buildDistrict(Card.TAVERN_5);
+        city.buildDistrict(Card.TEMPLE_1);
+        city.buildDistrict(Card.CHURCH_2);
+        city.buildDistrict(Card.CASTLE_2);
+        city.buildDistrict(Card.PRISON_2);
         int score = city.score(possession);
         if (city.isComplete() && !board.isFirst(city)) {
-            assertThat(score).isEqualTo(16); //14 + 2 = 16
+            assertThat(score).isEqualTo(16);
         }
     }
 
