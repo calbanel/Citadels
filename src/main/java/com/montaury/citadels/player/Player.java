@@ -1,8 +1,11 @@
 package com.montaury.citadels.player;
 
+import com.montaury.citadels.CardPile;
 import com.montaury.citadels.City;
 import com.montaury.citadels.Possession;
+import com.montaury.citadels.character.Character;
 import com.montaury.citadels.district.Card;
+import com.montaury.citadels.round.Group;
 import io.vavr.collection.HashSet;
 import io.vavr.collection.Set;
 
@@ -98,4 +101,14 @@ public class Player {
         gold -= ((cost));
     }
 
+    public void destroyDistrict(City city, Card card, CardPile pioche) {
+            city.destroyDistrict(card);
+            removeGold(card);
+            pioche.discard(card);
+    }
+    
+
+    private void removeGold(Card card) {
+        gold -= (card.district().cost()-1);
+    }
 }
