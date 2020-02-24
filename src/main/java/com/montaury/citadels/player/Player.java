@@ -101,14 +101,4 @@ public class Player {
         gold -= ((cost));
     }
 
-    public void destroyDistrict(City city, Card card, CardPile pioche) {
-            city.destroyDistrict(card);
-            removeGold(card);
-            pioche.discard(card);
-    }
-    
-
-    private void removeGold(Card card) {
-        gold -= (card.district().cost()-1);
-    }
 }
