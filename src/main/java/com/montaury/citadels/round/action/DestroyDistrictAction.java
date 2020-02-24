@@ -26,6 +26,7 @@ public class DestroyDistrictAction {
         }
         return destructibles;
     }
+
     public static void destroyDistrict(Group groupe1,Group groupe2, Card card, CardPile pioche) {
         int valeur = card.district().cost() - 1;
         if (groupe2.player().city().has(District.GREAT_WALL)){
@@ -35,6 +36,10 @@ public class DestroyDistrictAction {
         groupe1.player().pay(valeur);
         pioche.discard(card);
         System.out.println("BadaBoom ! " + groupe1.player().name() + " est passé par là, le " + card + " de " + groupe2.player().name() + " s'effondre dans un grand fracas !!");
+    }
+    public static void showDestructibleDistrict(GameRoundAssociations associations, Player player){
+        //Map<Player, List<DestructibleDistrict>> destructibles = ;
+        System.out.println(districtsDestructibleBy(associations, player));
     }
 
 

@@ -4,6 +4,7 @@ import com.montaury.citadels.character.Character;
 import com.montaury.citadels.district.Card;
 import com.montaury.citadels.player.HumanController;
 import com.montaury.citadels.player.Player;
+import com.montaury.citadels.round.GameRoundAssociations;
 import com.montaury.citadels.round.Group;
 import com.montaury.citadels.round.action.DestroyDistrictAction;
 import io.vavr.collection.List;
@@ -78,6 +79,20 @@ public class DestroyDistrictTest {
         city2.buildDistrict(Card.MANOR_5);
         DestroyDistrictAction.destroyDistrict(groupe1, groupe2, Card.MANOR_5, pioche);
         assertThat(player1.gold()).isEqualTo(87);
+    }
+
+    //Le append marche pas ! on comprend pas.
+    @Test
+    public void test(){
+        player1.add(90);
+        List<Group> association = List.empty();
+        city2.buildDistrict(Card.MANOR_5);
+        city2.buildDistrict(Card.WATCHTOWER_1);
+        association.append(groupe1);
+        association.append(groupe2);
+        System.out.println(association.length());
+        GameRoundAssociations groups = new GameRoundAssociations(association);
+        DestroyDistrictAction.showDestructibleDistrict(groups,player1);
     }
 
 }
