@@ -38,8 +38,9 @@ public class DestroyDistrictAction {
         System.out.println("BadaBoom ! " + groupe1.player().name() + " est passé par là, le " + card + " de " + groupe2.player().name() + " s'effondre dans un grand fracas !!");
     }
     public static void showDestructibleDistrict(GameRoundAssociations associations, Player player){
-        //Map<Player, List<DestructibleDistrict>> destructibles = ;
-        System.out.println(districtsDestructibleBy(associations, player));
+        /*
+        A COMPLETER
+         */
     }
 
 

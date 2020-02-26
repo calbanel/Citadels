@@ -81,18 +81,17 @@ public class DestroyDistrictTest {
         assertThat(player1.gold()).isEqualTo(87);
     }
 
-    //Le append marche pas ! on comprend pas.
+    //Le append ne fonctionne pas ! nous ne comprenons pas.
     @Test
     public void test(){
         player1.add(90);
         List<Group> association = List.empty();
         city2.buildDistrict(Card.MANOR_5);
         city2.buildDistrict(Card.WATCHTOWER_1);
-        association.append(groupe1);
-        association.append(groupe2);
-        System.out.println(association.length());
-        GameRoundAssociations groups = new GameRoundAssociations(association);
-        DestroyDistrictAction.showDestructibleDistrict(groups,player1);
+        association = association.append(groupe1);
+        association = association.append(groupe2);
+        GameRoundAssociations groupes = new GameRoundAssociations(association);
+        DestroyDistrictAction.showDestructibleDistrict(groupes,player1);
     }
 
 }
