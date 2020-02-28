@@ -112,7 +112,7 @@ public class Citadels {
             Collections.rotate(list, -players.indexOf(crown));
             List<Player> playersInOrder = List.ofAll(list);
             RandomCharacterSelector randomCharacterSelector = new RandomCharacterSelector();
-            List<Character> availableCharacters = List.of(Character.ASSASSIN, Character.THIEF, Character.MAGICIAN, Character.KING, Character.BISHOP, Character.MERCHANT, Character.ARCHITECT, Character.WARLORD);
+            List<Character> availableCharacters = List.of(Character.ASSASSIN, Character.THIEF, Character.MAGICIAN, Character.KING, Character.BISHOP, Character.MERCHANT, Character.ARCHITECT, Character.WARLORD,Character.ALCHEMIST);
 
             List<Character> availableCharacters1 = availableCharacters;
             List<Character> discardedCharacters = List.empty();
@@ -152,7 +152,7 @@ public class Citadels {
         }while (!players.map(Player::city).exists(City::isComplete));
     }
     private static void firstLoop (){
-        if ( iii < 8){
+        if ( iii < 9){
             secondLoop();
             iii++;
             firstLoop();
@@ -240,6 +240,7 @@ public class Citadels {
                             if (action == "Build district") {
                                 if (!group.player().buildableDistrictsInHand().isEmpty())
                                     possibleActions2 = possibleActions2.append("Build district");
+
                             }
                             else if (action == "Destroy district") {
                                 if (DestroyDistrictAction.districtsDestructibleBy(groups, group.player()).exists(districtsByPlayer -> !districtsByPlayer._2().isEmpty())) {
@@ -270,9 +271,12 @@ public class Citadels {
                         String actionType1 = group.player().controller.selectActionAmong(possibleActions2.toList());
                         // execute selected action
                         if (actionType1 == "End round")
-                        {} else if (actionType1 == "Build district") {
+                        {}
+                        else if (actionType1 == "Build district") {
                             Card card = group.player().controller.selectAmong(group.player().buildableDistrictsInHand());
                             group.player().buildDistrict(card);
+                            isAlchemist(group,card);
+
                         }
                         else if (actionType1 == "Discard card for 2 coins") {
                             Player player = group.player();
@@ -357,4 +361,13 @@ public class Citadels {
         System.out.println("Classement: " + roundAssociations.sortBy(a -> Tuple.of(a.player().score(), !a.isMurdered(), a.character))
                 .reverse());
     }
+
+    private static void isAlchemist(Group group, Card card)
+    {
+        if(group.character()==Character.ALCHEMIST)
+        {
+            group.player().add(card.district().cost());
+        }
+    }
+
 }

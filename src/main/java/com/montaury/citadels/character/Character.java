@@ -12,7 +12,8 @@ public enum Character {
     BISHOP(5, "Bishop",List.of("Receive income"), DistrictType.RELIGIOUS),
     MERCHANT(6, "Merchant",  List.of("Receive income", "Receive 1 gold"), DistrictType.TRADE),
     ARCHITECT(7, "Architect", List.of("Pick 2 cards", "Build district", "Build district")),
-    WARLORD(8, "Warlord", List.of("Receive income", "Destroy district"),DistrictType.MILITARY);
+    WARLORD(8, "Warlord", List.of("Receive income", "Destroy district"),DistrictType.MILITARY),
+    ALCHEMIST(9,"Alchemist",List.empty());
 
     Character(int number, String name,List<String> powers ) {this(number, name, powers,null);}
 
