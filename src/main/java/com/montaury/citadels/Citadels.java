@@ -33,6 +33,8 @@ public class Citadels {
     private static CardPile pioche;
     private static GameRoundAssociations groups;
 
+    static int alchemistOrMarchand;
+
     public static void main(String[] args) {
         initialisation();
 
@@ -89,6 +91,7 @@ public class Citadels {
         players = List.of(p);
         System.out.println("Saisir le nombre de joueurs total (entre 2 et 8): ");
         int nbP;
+
         do {
             nbP = scanner.nextInt();
         } while (nbP < 2 || nbP > 8);
@@ -97,6 +100,9 @@ public class Citadels {
             player.computer = true;
             players = players.append(player);
         }
+        System.out.println("Voulez vous jouer avec l'alchemist ou le merchant ? (0 pour alchemist, 1 pour merchant)") ;
+
+        alchemistOrMarchand = scanner.nextInt();
         pioche = new CardPile(Card.all().toList().shuffle());
         players.forEach(player -> {
             player.add(2);
@@ -106,13 +112,22 @@ public class Citadels {
     }
 
     private static void associationCreation() {
+            Character specialChar ;
+        if(alchemistOrMarchand==0)
+        {
+            specialChar = Character.ALCHEMIST ;
 
+        }
+        else
+        {
+            specialChar = Character.MERCHANT;
+        }
         do {
             java.util.List<Player> list = players.asJavaMutable();
             Collections.rotate(list, -players.indexOf(crown));
             List<Player> playersInOrder = List.ofAll(list);
             RandomCharacterSelector randomCharacterSelector = new RandomCharacterSelector();
-            List<Character> availableCharacters = List.of(Character.ASSASSIN, Character.THIEF, Character.MAGICIAN, Character.KING, Character.BISHOP, Character.MERCHANT, Character.ARCHITECT, Character.WARLORD,Character.ALCHEMIST);
+            List<Character> availableCharacters = List.of(Character.ASSASSIN, Character.THIEF, Character.MAGICIAN, Character.KING, Character.BISHOP, specialChar, Character.ARCHITECT, Character.WARLORD);
 
             List<Character> availableCharacters1 = availableCharacters;
             List<Character> discardedCharacters = List.empty();

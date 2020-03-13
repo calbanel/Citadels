@@ -1,4 +1,4 @@
 package com.montaury.citadels;
 
-public class AlchemistTest {
+public class ActionTest {
 }

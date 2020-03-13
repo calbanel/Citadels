@@ -9,6 +9,7 @@ import com.montaury.citadels.district.District;
 import com.montaury.citadels.player.Player;
 import com.montaury.citadels.round.GameRoundAssociations;
 import com.montaury.citadels.round.Group;
+import com.sun.nio.sctp.Association;
 import io.vavr.collection.HashMap;
 import io.vavr.collection.List;
 import io.vavr.collection.Map;
@@ -26,6 +27,7 @@ public class DestroyDistrictAction {
         }
         return destructibles;
     }
+
 
     public static void destroyDistrict(Group groupe1,Group groupe2, Card card, CardPile pioche) {
         int valeur = card.district().cost() - 1;
