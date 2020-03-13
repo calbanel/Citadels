@@ -12,6 +12,7 @@ import com.montaury.citadels.player.Player;
 import com.montaury.citadels.round.GameRoundAssociations;
 import com.montaury.citadels.round.Group;
 import com.montaury.citadels.round.action.DestroyDistrictAction;
+import com.sun.nio.sctp.Association;
 import io.vavr.Tuple;
 import io.vavr.collection.HashSet;
 import io.vavr.collection.List;
@@ -34,6 +35,7 @@ public class Citadels {
     private static GameRoundAssociations groups;
 
     static int alchemistOrMarchand;
+    static int bishopOrAbbot;
 
     public static void main(String[] args) {
         initialisation();
@@ -100,9 +102,12 @@ public class Citadels {
             player.computer = true;
             players = players.append(player);
         }
-        System.out.println("Voulez vous jouer avec l'alchemist ou le merchant ? (0 pour alchemist, 1 pour merchant)") ;
+        System.out.println("Voulez vous jouer avec l'alchemist ou le merchant ? (0 pour merchant, 1 pour alchemist)") ;
 
         alchemistOrMarchand = scanner.nextInt();
+        System.out.println("Voulez vous jouer avec le bishop ou l'abbot ? (0 pour bishop, 1 pour abbot)") ;
+
+        bishopOrAbbot = scanner.nextInt();
         pioche = new CardPile(Card.all().toList().shuffle());
         players.forEach(player -> {
             player.add(2);
@@ -112,22 +117,26 @@ public class Citadels {
     }
 
     private static void associationCreation() {
-            Character specialChar ;
-        if(alchemistOrMarchand==0)
+        Character tradeOrientedChar = Character.MERCHANT;;
+        Character religionOrientedChar = Character.BISHOP;
+
+        if(alchemistOrMarchand==1)
         {
-            specialChar = Character.ALCHEMIST ;
+            tradeOrientedChar = Character.ALCHEMIST ;
 
         }
-        else
+        if(bishopOrAbbot==1)
         {
-            specialChar = Character.MERCHANT;
+            religionOrientedChar = Character.ABBOT ;
+
         }
+
         do {
             java.util.List<Player> list = players.asJavaMutable();
             Collections.rotate(list, -players.indexOf(crown));
             List<Player> playersInOrder = List.ofAll(list);
             RandomCharacterSelector randomCharacterSelector = new RandomCharacterSelector();
-            List<Character> availableCharacters = List.of(Character.ASSASSIN, Character.THIEF, Character.MAGICIAN, Character.KING, Character.BISHOP, specialChar, Character.ARCHITECT, Character.WARLORD);
+            List<Character> availableCharacters = List.of(Character.ASSASSIN, Character.THIEF, Character.MAGICIAN, Character.KING, religionOrientedChar, tradeOrientedChar, Character.ARCHITECT, Character.WARLORD);
 
             List<Character> availableCharacters1 = availableCharacters;
             List<Character> discardedCharacters = List.empty();
@@ -285,6 +294,7 @@ public class Citadels {
                         }
                         String actionType1 = group.player().controller.selectActionAmong(possibleActions2.toList());
                         // execute selected action
+                        isAbbot(group,associations);
                         if (actionType1 == "End round")
                         {}
                         else if (actionType1 == "Build district") {
@@ -328,7 +338,7 @@ public class Citadels {
                         }
                         else if (actionType1 == "Receive income") {
                             DistrictType type = null;
-                            if (group.character == Character.BISHOP) {
+                            if (group.character == Character.BISHOP || group.character == Character.ABBOT ) {
                                 type = DistrictType.RELIGIOUS;
                             }
                             else if (group.character == Character.WARLORD) {
@@ -382,6 +392,36 @@ public class Citadels {
         if(group.character()==Character.ALCHEMIST)
         {
             group.player().add(card.district().cost());
+        }
+    }
+
+    private static void isAbbot(Group group, List<Group> assoc)
+    {
+        if(group.character()==Character.ABBOT)
+        {
+            int maxGold=group.player().gold();
+            int nbPlayerMax=0;
+            Group playerWithMoreGold = group;
+            for( Group aGroup : assoc)
+            {
+                if(aGroup.player().gold() > maxGold )
+                {
+                    maxGold=aGroup.player().gold();
+                    nbPlayerMax=1;
+                    playerWithMoreGold=aGroup;
+
+                }
+                else if(aGroup.player().gold() == maxGold)
+                {
+                    nbPlayerMax++;
+                }
+            }
+
+            if(group.player().gold() < maxGold && nbPlayerMax==1)
+            {
+                group.player().add(1);
+                playerWithMoreGold.player().add(-1);
+            }
         }
     }
 
